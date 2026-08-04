@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { GoogleGenAI } from "@google/genai";
-import OpenAI from "openai";
+import Groq from "groq-sdk";
 
 const router = Router();
 
@@ -9,10 +9,8 @@ const gemini = new GoogleGenAI({
   apiKey: process.env.GEMINI_API_KEY!,
 });
 
-// Groq (OpenAI-compatible)
-const groq = new OpenAI({
+const groq = new Groq({
   apiKey: process.env.GROQ_API_KEY!,
-  baseURL: "https://api.groq.com/openai/v1",
 });
 
 router.post("/", async (req, res) => {
