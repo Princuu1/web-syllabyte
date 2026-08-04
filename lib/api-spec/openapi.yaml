@@ -1,0 +1,226 @@
+openapi: 3.1.0
+info:
+  # Do not change the title, if the title changes, the import paths will be broken
+  title: Api
+  version: 0.1.0
+  description: API specification for Syllabyte
+servers:
+  - url: /api
+    description: Base API path
+tags:
+  - name: health
+    description: Health operations
+  - name: profile
+    description: Student profile operations
+paths:
+  /healthz:
+    get:
+      operationId: healthCheck
+      tags: [health]
+      summary: Health check
+      description: Returns server health status
+      responses:
+        "200":
+          description: Healthy
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HealthStatus"
+
+  /profile/{rollNo}:
+    get:
+      operationId: getProfile
+      tags: [profile]
+      summary: Get student profile by roll number
+      description: Fetches a student's profile from Supabase by class roll number
+      parameters:
+        - name: rollNo
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Student profile
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/StudentProfile"
+        "404":
+          description: Profile not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "500":
+          description: Server error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+  /profile/{rollNo}/photo:
+    patch:
+      operationId: updateProfilePhoto
+      tags: [profile]
+      summary: Update profile photo URL
+      description: Updates the photo URL for a student's profile
+      parameters:
+        - name: rollNo
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PhotoUpdate"
+      responses:
+        "200":
+          description: Profile photo updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/StudentProfile"
+        "404":
+          description: Profile not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "500":
+          description: Server error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+  /profile/{rollNo}/link-email:
+    patch:
+      operationId: linkEmailToProfile
+      tags: [profile]
+      summary: Link a Google email to a student profile
+      description: Associates a Google account email with a student record for future logins
+      parameters:
+        - name: rollNo
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/LinkEmailBody"
+      responses:
+        "200":
+          description: Email linked successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/StudentProfile"
+        "404":
+          description: Profile not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "500":
+          description: Server error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+  /profile/by-email:
+    get:
+      operationId: getProfileByEmail
+      tags: [profile]
+      summary: Get student profile by linked email
+      description: Looks up a student profile using a previously linked Google email
+      parameters:
+        - name: email
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Student profile
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/StudentProfile"
+        "404":
+          description: Profile not found for this email
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "500":
+          description: Server error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+components:
+  schemas:
+    HealthStatus:
+      type: object
+      properties:
+        status:
+          type: string
+      required:
+        - status
+
+    StudentProfile:
+      type: object
+      properties:
+        student_name:
+          type: ["string", "null"]
+        gender:
+          type: ["string", "null"]
+        date_of_birth:
+          type: ["string", "null"]
+        college_name:
+          type: ["string", "null"]
+        course_name:
+          type: ["string", "null"]
+        sem:
+          type: ["integer", "null"]
+        photo_url:
+          type: ["string", "null"]
+        class_roll_no:
+          type: string
+        linked_email:
+          type: ["string", "null"]
+      required:
+        - class_roll_no
+
+    PhotoUpdate:
+      type: object
+      properties:
+        photo_url:
+          type: string
+      required:
+        - photo_url
+
+    LinkEmailBody:
+      type: object
+      properties:
+        email:
+          type: string
+      required:
+        - email
+
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: string
+      required:
+        - error

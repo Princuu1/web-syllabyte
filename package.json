@@ -1,0 +1,47 @@
+{
+  "name": "workspace",
+  "version": "0.0.0",
+  "license": "MIT",
+  "private": true,
+  "workspaces": [
+    "artifacts/syllabyte",
+    "artifacts/api-server",
+    "lib/api-client-react",
+    "lib/api-zod",
+    "lib/db"
+  ],
+  "scripts": {
+    "dev": "concurrently -n frontend,backend -c blue,green \"npm run dev --workspace=artifacts/syllabyte\" \"npm run dev --workspace=artifacts/api-server\"",
+    "build": "npm run typecheck && npm run build --workspaces --if-present",
+    "typecheck:libs": "tsc --build",
+    "typecheck": "npm run typecheck:libs && npm run typecheck --workspaces --if-present"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.2",
+    "cross-env": "^10.1.0",
+    "prettier": "^3.9.5",
+    "typescript": "~5.9.3"
+  },
+  "dependencies": {
+    "@google/genai": "^2.13.0",
+    "@heyputer/puter.js": "^2.5.4",
+    "@react-pdf-viewer/core": "^3.12.0",
+    "@react-pdf-viewer/default-layout": "^3.12.0",
+    "@react-pdf-viewer/full-screen": "^3.12.0",
+    "@react-pdf-viewer/get-file": "^3.12.0",
+    "@react-pdf-viewer/page-navigation": "^3.12.0",
+    "@react-pdf-viewer/scroll-mode": "^3.12.0",
+    "@react-pdf-viewer/selection-mode": "^3.12.0",
+    "@react-pdf-viewer/toolbar": "^3.12.0",
+    "@react-pdf-viewer/zoom": "^3.12.0",
+    "clsx": "^2.1.1",
+    "gsap": "^3.15.0",
+    "motion": "^12.42.2",
+    "openai": "^6.49.0",
+    "pdfjs-dist": "^3.11.174",
+    "react-markdown": "^10.1.0",
+    "react-pdf": "^10.4.1",
+    "remark-gfm": "^4.0.1",
+    "tailwind-merge": "^3.6.0"
+  }
+}
