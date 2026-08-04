@@ -1,6 +1,3 @@
-import type { Request, Response } from "express";
-import app from "../src/app";
+import app from "../dist/app.mjs";
 
-export default function handler(req: Request, res: Response) {
-  return app(req, res);
-}
+export default app;
