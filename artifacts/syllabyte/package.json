@@ -83,6 +83,7 @@
     "@supabase/supabase-js": "^2.110.6",
     "@types/three": "^0.185.3",
     "meshline": "^3.3.1",
+    "react-markdown": "^10.1.0",
     "remark-gfm": "^4.0.1",
     "three": "^0.185.1"
   }
