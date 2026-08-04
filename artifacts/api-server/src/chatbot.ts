@@ -1,16 +1,11 @@
 import { Router } from "express";
 import { GoogleGenAI } from "@google/genai";
-import Groq from "groq-sdk";
 
 const router = Router();
 
 // Gemini
 const gemini = new GoogleGenAI({
   apiKey: process.env.GEMINI_API_KEY!,
-});
-
-const groq = new Groq({
-  apiKey: process.env.GROQ_API_KEY!,
 });
 
 router.post("/", async (req, res) => {
@@ -44,17 +39,43 @@ router.post("/", async (req, res) => {
     // Groq Models
     // --------------------
     else {
-      const response = await groq.chat.completions.create({
-        model,
-        messages: [
-          {
-            role: "user",
-            content: message,
+      const response = await fetch(
+        "https://api.groq.com/openai/v1/chat/completions",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${process.env.GROQ_API_KEY}`,
           },
-        ],
-      });
+          body: JSON.stringify({
+            model,
+            messages: [
+              {
+                role: "user",
+                content: message,
+              },
+            ],
+          }),
+        },
+      );
 
-      reply = response.choices[0].message.content ?? "";
+      if (!response.ok) {
+        const errorText = await response.text();
+
+        throw new Error(
+          `Groq API error: ${response.status} ${errorText}`,
+        );
+      }
+
+      const data = (await response.json()) as {
+        choices?: Array<{
+          message?: {
+            content?: string;
+          };
+        }>;
+      };
+
+      reply = data.choices?.[0]?.message?.content ?? "";
     }
 
     return res.json({
