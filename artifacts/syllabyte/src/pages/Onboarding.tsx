@@ -211,52 +211,93 @@ export default function Onboarding() {
     }
   };
 
-  const handleConfirmLink = async () => {
-    if (!session || !profile) return;
-    clearError();
-    setIsLinking(true);
+ const handleConfirmLink = async () => {
+if (!session || !profile) return;
 
-    try {
-      const currentEmail = session.user?.email;
-      if (!currentEmail) throw new Error('No email in session');
+clearError();
+setIsLinking(true);
 
-      const linkedEmail = getLinkedEmail(profile);
-      if (linkedEmail && linkedEmail.toLowerCase() !== currentEmail.toLowerCase()) {
-        throw new Error(`This profile is already linked to ${linkedEmail}.`);
-      }
+try {
+const currentEmail = session.user?.email;
 
-      const BASE = import.meta.env.BASE_URL?.replace(/\/$/, '') || '';
-      const res = await fetch(
-        `${BASE}/api/profile/${encodeURIComponent(profile.class_roll_no)}/link-email`,
-        {
-          method: 'PATCH',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ email: currentEmail }),
-        }
-      );
 
-      if (!res.ok) {
-        let message = 'Failed to link account';
-        try {
-          const err = await res.json();
-          message = err.error || message;
-        } catch {
-          // ignore JSON parse errors
-        }
-        throw new Error(message);
-      }
+if (!currentEmail) {
+  throw new Error('No email found in your login session.');
+}
 
-      setRollNo(profile.class_roll_no);
-      toast.success('Account linked! Welcome to Syllabyte 🎉');
-      setLocation('/home');
-    } catch (err: unknown) {
-      const msg = err instanceof Error ? err.message : 'Something went wrong. Please try again.';
-      setErrorMessage(msg);
-      toast.error(msg);
-    } finally {
-      setIsLinking(false);
+const linkedEmail = getLinkedEmail(profile);
+
+if (
+  linkedEmail &&
+  linkedEmail.toLowerCase() !== currentEmail.toLowerCase()
+) {
+  throw new Error('This profile is already linked to another account.');
+}
+
+const API_URL =
+  import.meta.env.VITE_API_URL ||
+  'http://localhost:3001';
+
+const res = await fetch(
+  `${API_URL}/api/profile/${encodeURIComponent(
+    profile.class_roll_no
+  )}/link-email`,
+  {
+    method: 'PATCH',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      email: currentEmail,
+    }),
+  }
+);
+
+if (!res.ok) {
+  let message = 'Failed to link account';
+
+  try {
+    const err = await res.json();
+
+    if (err?.error) {
+      message = err.error;
     }
-  };
+  } catch {
+    // Response was not JSON
+  }
+
+  throw new Error(message);
+}
+
+const updatedProfile = await res.json();
+
+console.log('Linked profile:', updatedProfile);
+
+setRollNo(profile.class_roll_no);
+
+toast.success('Account linked! Welcome to Syllabyte 🎉');
+
+setLocation('/home');
+
+
+} catch (err: unknown) {
+console.error('Account linking failed:', err);
+
+
+const msg =
+  err instanceof Error
+    ? err.message
+    : 'Something went wrong. Please try again.';
+
+setErrorMessage(msg);
+toast.error(msg);
+
+
+} finally {
+setIsLinking(false);
+}
+};
+
 
   return (
     <div className="min-h-[100dvh] w-full bg-gradient-to-b from-muted/40 via-background to-background flex justify-center">
