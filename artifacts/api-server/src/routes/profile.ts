@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { getSupabasePool } from "../lib/supabaseDb";
+import { getSupabasePool } from "../lib/supabaseDb.js";
 import {
   GetProfileParams,
   UpdateProfilePhotoParams,
