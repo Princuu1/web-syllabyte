@@ -55,7 +55,11 @@ type ModelOption = {
   provider: string;
 };
 
-const API_URL = "http://localhost:5173/api/chatbot";
+const API_BASE_URL =
+  import.meta.env.VITE_API_URL ||
+  "http://localhost:3001";
+
+const API_URL = `${API_BASE_URL}/api/chatbot`;
 const STORAGE_SESSIONS = "syllabyte-ai-chat-sessions-v7";
 const STORAGE_ACTIVE = "syllabyte-ai-active-session-v7";
 const STORAGE_MODEL = "syllabyte-ai-selected-model-v1";
