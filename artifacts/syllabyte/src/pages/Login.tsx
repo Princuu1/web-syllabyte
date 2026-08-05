@@ -26,7 +26,7 @@ export default function Login() {
     });
   };
 
-  const HERO_BG = "/public/syllabyte1.png";
+  const HERO_BG = "/syllabyte1.png";
 
   if (isLoading || session) {
     return (
