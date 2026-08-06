@@ -17,6 +17,7 @@ import Chatbot from "@/pages/chatbot";
 import NoteViewer from '@/pages/NoteViewer';
 import PrivacyPolicy from "./pages/privacy-policy";
 import TermsAndConditions from './pages/terms-and-conditions';
+import About from './pages/about';
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
@@ -41,6 +42,7 @@ function Router() {
       <Route path="/notes/:noteId" component={NoteViewer} />
       <Route path="/privacy-policy" component={PrivacyPolicy} />
       <Route path="/terms-and-conditions" component={TermsAndConditions} />
+      <Route path="/about" component={About} />
       <Route component={NotFound} />
     </Switch>
   );
