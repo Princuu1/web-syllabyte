@@ -94,9 +94,23 @@ export default function Login() {
               </button>
             </NoiseBackground>
 
-            <p className="mt-3 text-center text-xs text-gray-500">
-              By continuing, you agree to our Terms of Service and Privacy Policy.
-            </p>
+      <p className="mt-3 text-center text-xs text-gray-500">
+  By continuing, you agree to our{" "}
+  <a
+    href="/terms-and-conditions"
+    className="font-medium text-primary hover:underline"
+  >
+    Terms of Service
+  </a>{" "}
+  and{" "}
+  <a
+    href="/privacy-policy"
+    className="font-medium text-primary hover:underline"
+  >
+    Privacy Policy
+  </a>
+  .
+</p>
           </div>
         </div>
       </div>
