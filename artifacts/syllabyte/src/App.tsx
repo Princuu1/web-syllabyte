@@ -4,6 +4,7 @@ import { TooltipProvider } from '@/components/ui/tooltip';
 import { AuthProvider } from '@/components/AuthProvider';
 import NotFound from '@/pages/not-found';
 import { Route, Switch, Router as WouterRouter } from 'wouter';
+import { Analytics } from '@vercel/analytics/react';
 
 import Login from '@/pages/Login';
 import AuthCallback from '@/pages/AuthCallback';
@@ -59,6 +60,7 @@ function App() {
           <Toaster />
         </AuthProvider>
       </TooltipProvider>
+      <Analytics />
     </QueryClientProvider>
   );
 }
