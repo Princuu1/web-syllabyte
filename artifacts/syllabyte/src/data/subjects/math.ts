@@ -200,8 +200,16 @@ export const math: Subject = {
           id: "math-u4-t10",
           name: "Legendre’s Linear Equations",
         },
+
       ],
+      
     },
+    {
+  id: "math-pyq",
+  name: "PYQ",
+  topics: [],
+},
   ],
 };
+
  

@@ -56,5 +56,10 @@ export const de: Subject = {
         { id: "de-u4-t9", name: "Introduction to FPGAs and ASICs" },
       ],
     },
+    {
+  id: "de-pyq",
+  name: "PYQ",
+  topics: [],
+},
   ],
 };

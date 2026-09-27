@@ -19,6 +19,7 @@ import NoteViewer from '@/pages/NoteViewer';
 import PrivacyPolicy from "./pages/privacy-policy";
 import TermsAndConditions from './pages/terms-and-conditions';
 import About from './pages/about';
+import LectureViewer from '@/pages/lectureviewer';
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
@@ -37,6 +38,10 @@ function Router() {
       <Route path="/home" component={Home} />
       <Route path="/subject/:subjectId" component={SubjectUnits} />
       <Route path="/subject/:subjectId/unit/:unitId" component={TopicsNotes} />
+      <Route
+  path="/lecture/:lectureId"
+  component={LectureViewer}
+/>
       <Route path="/profile" component={Profile} />
       <Route path="/settings" component={Settings} />
       <Route path="/chatbot" component={Chatbot} />

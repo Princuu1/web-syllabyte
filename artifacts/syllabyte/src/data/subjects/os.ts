@@ -378,5 +378,10 @@ export const os: Subject = {
         },
       ],
     },
+    {
+  id: "os-pyq",
+  name: "PYQ",
+  topics: [],
+},
   ],
 };

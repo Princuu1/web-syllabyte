@@ -346,5 +346,10 @@ export const se: Subject = {
         },
       ],
     },
+    {
+  id: "se-pyq",
+  name: "PYQ",
+  topics: [],
+},
   ],
 };

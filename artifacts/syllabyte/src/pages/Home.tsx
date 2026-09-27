@@ -142,7 +142,7 @@ export default function Home() {
 
                   <p className="mt-3 max-w-xl text-sm sm:text-base leading-6 sm:leading-7 text-slate-600">
                     Welcome to SyllaByte. Your one-stop platform for B.Tech education.
-                    Access curated notes, topics, and important questions organized
+                    Access curated notes, lectures, topics, and important questions organized
                     by subject and chapter to enhance your engineering journey.
                   </p>
                 </div>
@@ -160,7 +160,7 @@ export default function Home() {
             {/* SECTION */}
             <div className="mt-8 sm:mt-10 lg:mt-12">
               <h2 className="text-2xl sm:text-3xl font-bold text-foreground">
-                Semester Subjects
+                3rd Semester Subjects
               </h2>
               <p className="mt-2 text-sm sm:text-base text-muted-foreground">
                 Choose a subject to explore its units and study notes.

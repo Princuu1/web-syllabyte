@@ -261,6 +261,12 @@ export const dsa: Subject = {
           name: "Prim’s Algorithm",
         },
       ],
+      
     },
+    {
+  id: "dsa-pyq",
+  name: "PYQ",
+  topics: [],
+},
   ],
 };

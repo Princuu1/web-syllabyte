@@ -426,9 +426,9 @@ function Sidebar({
 
       <div className="border-t border-zinc-200 p-4">
         <div className="rounded-2xl border border-zinc-200 bg-zinc-50 p-3 text-sm text-zinc-600">
-          <p className="font-medium text-zinc-900">AI note</p>
+          <p className="font-medium text-zinc-900">Note</p>
           <p className="mt-1 leading-6">
-            AI can make mistakes. Recheck important answers.
+            SyllaByte AI can make mistakes. Recheck important answers.
           </p>
         </div>
       </div>

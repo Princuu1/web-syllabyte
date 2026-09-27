@@ -150,5 +150,10 @@ export const pp: Subject = {
         },
       ],
     },
+    {
+  id: "pp-pyq",
+  name: "PYQ",
+  topics: [],
+},
   ],
 };
